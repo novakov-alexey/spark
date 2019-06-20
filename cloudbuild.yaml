@@ -5,7 +5,7 @@ steps:
     args:
       - '-c'
       - |
-        git fetch && git checkout tags/$$SPARK_VER
+        git fetch --depth=1 && git checkout tags/$$SPARK_VER
     env:
       - 'SPARK_VER=${_SPARK_VER}'        
     
