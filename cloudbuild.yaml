@@ -1,0 +1,27 @@
+steps:
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        git checkout tags/v2.4.3
+    
+  - name: 'gcr.io/$PROJECT_ID/scala-sbt'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        ./build/sbt package
+
+  - name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        ./bin/docker-image-tool.sh -r gcr.io/$PROJECT_ID -t ${_SPARK_VER} build        
+    env:
+      - 'SPARK_VER=${_SPARK_VER}'      
+
+tags: ['cloud-build-spark']
+images: ['gcr.io/$PROJECT_ID/spark:${_SPARK_VER}']
+
