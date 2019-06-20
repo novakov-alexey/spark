@@ -15,7 +15,7 @@ steps:
       - -c
       - |
         ./build/sbt package
-    timeout: 1200s
+    timeout: 20m0s
 
   - name: gcr.io/cloud-builders/docker
     entrypoint: bash
@@ -28,3 +28,4 @@ steps:
 
 tags: ['cloud-build-spark']
 images: ['gcr.io/$PROJECT_ID/spark']
+timeout: 25m0s
