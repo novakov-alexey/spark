@@ -4,7 +4,9 @@ steps:
     args:
       - '-c'
       - |
-        git checkout tags/v2.4.3
+        git checkout tags/$$SPARK_VER
+    env:
+      - 'SPARK_VER=${_SPARK_VER}'        
     
   - name: 'gcr.io/$PROJECT_ID/scala-sbt'
     entrypoint: bash
@@ -18,10 +20,10 @@ steps:
     args:
       - '-c'
       - |
-        ./bin/docker-image-tool.sh -r gcr.io/$PROJECT_ID -t ${_SPARK_VER} build        
+        ./bin/docker-image-tool.sh -r gcr.io/$PROJECT_ID -t $$SPARK_VER build        
     env:
       - 'SPARK_VER=${_SPARK_VER}'      
 
 tags: ['cloud-build-spark']
-images: ['gcr.io/$PROJECT_ID/spark:${_SPARK_VER}']
+images: ['gcr.io/$PROJECT_ID/spark:$$SPARK_VER']
 
