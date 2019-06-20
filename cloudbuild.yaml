@@ -15,6 +15,7 @@ steps:
       - -c
       - |
         ./build/sbt package
+    timeout: 1200s
 
   - name: gcr.io/cloud-builders/docker
     entrypoint: bash
